@@ -196,7 +196,7 @@ let createPosts = async(posts) => {
     const fragment = document.createDocumentFragment();
 
     for (const post of posts) {
-        const article = document.createElement('article');
+        const newEle = document.createElement('article');
         const h2 = createElemWithText('h2', post.title);
         const p1 = createElemWithText('p', post.body);
         const p2 = createElemWithText('p', `Post ID: ${post.id}`);
@@ -205,9 +205,9 @@ let createPosts = async(posts) => {
         const p4 = createElemWithText('p', author.company.catchPhrase);
         const button = createElemWithText('button', 'Show Comments');
         button.dataset.postId = post.id;
-        article.append(h2, p1, p2, p3, p4, button);
+        newEle.append(h2, p1, p2, p3, p4, button);
         const section = await displayComments(post.id);
-        article.append(section);
+        newEle.append(section);
         fragment.append(article);
     }
 
@@ -220,6 +220,7 @@ let displayPosts = async (posts) => {
 
     let element = (posts) ? await createPosts(posts) : document.querySelector("main p");
     mainEle.append(element);
+    
     return element;
 }
 
